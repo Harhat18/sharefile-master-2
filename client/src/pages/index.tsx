@@ -12,7 +12,7 @@ export default function Home() {
   const handleUpload = async () => {
     if (uploadState === "Uploading") return;
     const formData = new FormData();
-    formData.append("myfile", file);
+    formData.append("myFile", file);
     try {
       const { data } = await axios({
         method: "post",
@@ -48,7 +48,10 @@ export default function Home() {
         )}
 
         {/* upload button */}
-        <button className="w-44 bg-gray-900 rounded-md p-2 my-5 focus:outline-none ">
+        <button
+          className="w-44 bg-gray-900 rounded-md p-2 my-5 focus:outline-none "
+          onClick={handleUpload}
+        >
           Upload
         </button>
       </div>
