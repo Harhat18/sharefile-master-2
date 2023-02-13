@@ -1,3 +1,4 @@
+import DowloadFile from "@components/DowloadFile";
 import DropZoneComponents from "@components/DropZoneComponents";
 import RenderFile from "@components/RenderFile";
 import axios from "axios";
@@ -7,10 +8,11 @@ export default function Home() {
   const [id, setId] = useState(null);
   const [downloadPageLink, setdownloadPageLink] = useState(null);
   const [uploadState, setUploadState] = useState<
-    "Uploading" | "Upload Failed" | "Uploaded"
-  >(null);
+    "Uploading" | "Upload Failed" | "Uploaded" | "Upload"
+  >("Upload");
   const handleUpload = async () => {
     if (uploadState === "Uploading") return;
+    setUploadState("Uploading");
     const formData = new FormData();
     formData.append("myFile", file);
     try {
@@ -29,6 +31,10 @@ export default function Home() {
       setUploadState("Upload Failed");
     }
   };
+  const resetComponent = () => {
+    setFile(null);
+    setdownloadPageLink(null);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -36,7 +42,7 @@ export default function Home() {
         Got a File? Share It Like Fake News
       </h1>
       <div className="flex flex-col items-center justify-center w-96 bg-gray-800 shadow-xl rounded-xl justify-xl">
-        <DropZoneComponents setFile={setFile} />
+        {!downloadPageLink && <DropZoneComponents setFile={setFile} />}
         {file && (
           <RenderFile
             file={{
@@ -48,12 +54,26 @@ export default function Home() {
         )}
 
         {/* upload button */}
-        <button
-          className="w-44 bg-gray-900 rounded-md p-2 my-5 focus:outline-none "
-          onClick={handleUpload}
-        >
-          Upload
-        </button>
+        {!downloadPageLink && file && (
+          <button
+            className="w-44 bg-gray-900 rounded-md p-2 my-5 focus:outline-none "
+            onClick={handleUpload}
+          >
+            {uploadState}
+          </button>
+        )}
+        {downloadPageLink && (
+          <div className="p-2 text-center">
+            <DowloadFile downloadPageLink={downloadPageLink} />
+            {/* Email form */}
+            <button
+              className="w-44 bg-gray-900 rounded-md p-2 my-5 focus:outline-none "
+              onClick={resetComponent}
+            >
+              Upload New file
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
