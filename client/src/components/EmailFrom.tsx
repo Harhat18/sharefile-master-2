@@ -5,7 +5,8 @@ const EmailFrom: FunctionComponent<{ id: string }> = ({ id }) => {
   const [emailTo, setEmailTo] = useState("");
   const [message, setMessage] = useState(null);
 
-  const handleEmail = async () => {
+  const handleEmail = async (e) => {
+    e.preventDefault();
     try {
       const { data } = await axios({
         method: "POST",
@@ -52,7 +53,7 @@ const EmailFrom: FunctionComponent<{ id: string }> = ({ id }) => {
           Email
         </button>
       </form>
-      {}
+      {message && <p className="font-medium text-red-500">{message}</p>}
     </div>
   );
 };
