@@ -3,6 +3,7 @@ import DropZoneComponents from "@components/DropZoneComponents";
 import RenderFile from "@components/RenderFile";
 import axios from "axios";
 import { useState } from "react";
+import EmailFrom from "../components/EmailFrom";
 export default function Home() {
   const [file, setFile] = useState(null);
   const [id, setId] = useState(null);
@@ -65,6 +66,7 @@ export default function Home() {
         {downloadPageLink && (
           <div className="p-2 text-center">
             <DowloadFile downloadPageLink={downloadPageLink} />
+            <EmailFrom id={id} />
             {/* Email form */}
             <button
               className="w-44 bg-gray-900 rounded-md p-2 my-5 focus:outline-none "
