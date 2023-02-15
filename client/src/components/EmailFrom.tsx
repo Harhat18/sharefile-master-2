@@ -41,7 +41,7 @@ const EmailFrom: FunctionComponent<{ id: string }> = ({ id }) => {
         <input
           className="p-1 text-white bg-gray-800 border-2 focus:outline-none"
           type="email"
-          placeholder="Email From"
+          placeholder="Email to"
           required
           onChange={(e) => setEmailTo(e.target.value)}
           value={emailTo}
